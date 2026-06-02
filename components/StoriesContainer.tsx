@@ -4,6 +4,7 @@ import {
   AnimatePresence,
   motion,
   type PanInfo,
+  type Variants,
 } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import ProgressDots from "./ProgressDots";
@@ -12,6 +13,12 @@ import { playTick, unlockAudio } from "@/lib/sound";
 
 const SWIPE_VELOCITY = 350;
 const SWIPE_DISTANCE = 60;
+
+const slideVariants: Variants = {
+  enter: (direction: number) => ({ y: direction > 0 ? "100%" : "-100%" }),
+  center: { y: "0%" },
+  exit: (direction: number) => ({ y: direction > 0 ? "-100%" : "100%" }),
+};
 
 export default function StoriesContainer() {
   const [index, setIndex] = useState(0);
@@ -94,9 +101,10 @@ export default function StoriesContainer() {
         <motion.div
           key={current.id}
           custom={direction}
-          initial={(d: number) => ({ y: d > 0 ? "100%" : "-100%" })}
-          animate={{ y: "0%" }}
-          exit={(d: number) => ({ y: d > 0 ? "-100%" : "100%" })}
+          variants={slideVariants}
+          initial="enter"
+          animate="center"
+          exit="exit"
           transition={{ type: "spring", stiffness: 260, damping: 32 }}
           drag="y"
           dragConstraints={{ top: 0, bottom: 0 }}

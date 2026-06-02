@@ -26,6 +26,30 @@ npm run dev
 # open http://localhost:3000
 ```
 
+## Share without GitHub
+
+The app is fully client-side and exports to plain HTML/CSS/JS — no server
+required.
+
+```bash
+npm run build         # emits a self-contained `out/` folder
+npx serve out         # preview locally on http://localhost:3000
+```
+
+Then ship `out/` anywhere:
+
+| Where | How |
+|---|---|
+| **Netlify Drop** | Drag the `out/` folder onto [app.netlify.com/drop](https://app.netlify.com/drop) — no account needed |
+| **Vercel** | `npx vercel` in this folder, or import the repo at [vercel.com/new](https://vercel.com/new) |
+| **Cloudflare Pages** | Drag-and-drop, or connect this repo |
+| **Email / Drive / Slack** | Zip `out/` and send. Recipient runs `npx serve out` to view |
+
+> Heads up: double-clicking `out/index.html` from your file browser won't
+> work because browsers block module loading from `file://`. You always
+> need a tiny static server (`npx serve`, `python -m http.server`, etc.)
+> or a hosted URL.
+
 ## Controls
 
 | Action | Result |
